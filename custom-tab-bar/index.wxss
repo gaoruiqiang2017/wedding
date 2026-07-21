@@ -5,7 +5,7 @@
   right: 0;
   z-index: 999;
   display: flex;
-  height: 100rpx;
+  height: 108rpx;
   background: #ffffff;
   border-top: 1rpx solid #f0ece6;
   padding-bottom: env(safe-area-inset-bottom);
@@ -21,8 +21,8 @@
 }
 
 .tab-icon {
-  width: 56rpx;
-  height: 56rpx;
+  width: 64rpx;
+  height: 64rpx;
 }
 
 .tab-text {
