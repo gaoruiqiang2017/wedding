@@ -67,24 +67,6 @@
     </scroll-view>
   </view>
 
-  <!-- 门店一览 -->
-  <view class="sec">
-    <view class="store-card card" bindtap="goStore">
-      <view class="store-head">
-        <text class="store-name">{{ store.storeName || shopName || '花田喜事婚纱馆' }}</text>
-        <view class="store-more">门店详情<view class="ic ic-arrow store-more-arr"></view></view>
-      </view>
-      <view class="store-row" wx:if="{{store.businessHours}}">
-        <view class="ic-badge"><view class="ic ic-clock"></view></view>
-        <text class="store-text">{{ store.businessHours }}</text>
-      </view>
-      <view class="store-row">
-        <view class="ic-badge"><view class="ic ic-pin"></view></view>
-        <text class="store-text">{{ store.address || '太原市清徐县紫林路双湖水街 · 花田喜事美妆婚纱馆' }}</text>
-      </view>
-    </view>
-  </view>
-
   <view class="beian">
     <text class="beian-link" data-url="https://beian.miit.gov.cn/" bindtap="openUrl">京ICP备2026036329号-2X</text>
   </view>

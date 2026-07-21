@@ -1,6 +1,5 @@
 import { listDress } from '../../api/dress';
 import { listStaff } from '../../api/staff';
-import { getStoreInfo } from '../../api/store';
 import { dictLabel } from '../../utils/dict';
 import { getShopName } from '../../utils/auth';
 import { mediaUrl } from '../../utils/media';
@@ -16,13 +15,11 @@ Page({
     dressRight: [],
     dressLoading: false,
     staffList: [],
-    store: {},
   },
 
   onLoad() {
     this.loadFeatured();
     this.loadStaff();
-    this.loadStore();
   },
 
   onShow() {
@@ -33,7 +30,7 @@ Page({
   },
 
   onPullDownRefresh() {
-    Promise.all([this.loadFeatured(), this.loadStaff(), this.loadStore()])
+    Promise.all([this.loadFeatured(), this.loadStaff()])
       .then(() => wx.stopPullDownRefresh())
       .catch(() => wx.stopPullDownRefresh());
   },
@@ -72,12 +69,6 @@ Page({
       .catch(() => {});
   },
 
-  loadStore() {
-    return getStoreInfo()
-      .then((res) => this.setData({ store: res.data || {} }))
-      .catch(() => {});
-  },
-
   onInput(e) {
     this.setData({ keyword: e.detail.value });
   },
@@ -106,10 +97,6 @@ Page({
 
   goStaffDetail(e) {
     wx.navigateTo({ url: `/pages/staff-detail/index?id=${e.currentTarget.dataset.id}` });
-  },
-
-  goStore() {
-    wx.navigateTo({ url: '/pages/store/index' });
   },
 
   openUrl(e) {

@@ -59,8 +59,10 @@
     </view>
   </view>
 
-  <view class="ver text-muted">花田喜事门店展示 v{{ version }}</view>
-  <view class="beian">
-    <text class="beian-link" data-url="https://beian.miit.gov.cn/" bindtap="openUrl">京ICP备2026036329号-2X</text>
+  <view class="footer">
+    <view class="ver text-muted">花田喜事门店展示 v{{ version }}</view>
+    <view class="beian">
+      <text class="beian-link" data-url="https://beian.miit.gov.cn/" bindtap="openUrl">京ICP备2026036329号-2X</text>
+    </view>
   </view>
 </view>
