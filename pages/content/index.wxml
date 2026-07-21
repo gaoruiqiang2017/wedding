@@ -1,0 +1,32 @@
+<view class="page">
+  <scroll-view scroll-x class="cats">
+    <view
+      wx:for="{{cats}}"
+      wx:key="value"
+      wx:for-item="c"
+      class="cat {{category === c.value ? 'active' : ''}}"
+      data-value="{{c.value}}"
+      bindtap="switchCat"
+    >{{ c.label }}</view>
+  </scroll-view>
+
+  <view class="list">
+    <view class="item card" wx:for="{{list}}" wx:key="contentId" wx:for-item="item" data-id="{{item.contentId}}" bindtap="goDetail">
+      <image class="cover" src="{{item.cover}}" mode="aspectFill" />
+      <view class="info">
+        <view class="title">{{ item.title }}</view>
+        <view class="summary" wx:if="{{item.summary}}">{{ item.summary }}</view>
+        <view class="meta">
+          <text class="cat-tag">{{ item.catLabel }}</text>
+          <text class="stat">👁 {{ item.viewCount || 0 }}</text>
+          <text class="stat">♥ {{ item.likeCount || 0 }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading && list.length === 0}}" class="placeholder">加载中…</view>
+  <view wx:if="{{!loading && list.length === 0}}" class="placeholder">暂无指南内容</view>
+  <view wx:if="{{loading && list.length > 0}}" class="loadmore">加载中…</view>
+  <view wx:elif="{{finished && list.length > 0}}" class="loadmore">没有更多了</view>
+</view>

@@ -1,0 +1,113 @@
+<view class="page">
+  <!-- 置顶:搜索 + 风格 + 筛选 -->
+  <view class="topbar">
+    <view class="search-input-wrap">
+      <view class="ic ic-search ico"></view>
+      <input
+        value="{{keyword}}"
+        placeholder="搜索款式名称"
+        placeholder-class="ph"
+        confirm-type="search"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+      />
+      <text wx:if="{{keyword}}" class="clear" catchtap="clearKeyword">✕</text>
+    </view>
+
+    <scroll-view class="style-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <text
+        class="chip {{!filters.style ? 'on' : ''}}"
+        data-val=""
+        bindtap="onStyleChip"
+      >全部</text>
+      <text
+        wx:for="{{styleOptions}}"
+        wx:key="*this"
+        wx:for-item="o"
+        class="chip {{filters.style === o ? 'on' : ''}}"
+        data-val="{{o}}"
+        bindtap="onStyleChip"
+      >{{ o }}</text>
+    </scroll-view>
+
+    <view class="sort-bar">
+      <text class="sort-item {{sortKey === '' ? 'on' : ''}}" data-sort="" bindtap="setSort">综合</text>
+      <text class="sort-item {{sortKey === 'hot' ? 'on' : ''}}" data-sort="hot" bindtap="setSort">人气</text>
+      <text class="sort-item filter-entry {{hasFilter ? 'on' : ''}}" bindtap="toggleFilterPanel">
+        筛选{{ filterCount ? ' · ' + filterCount : '' }}
+      </text>
+    </view>
+  </view>
+
+  <!-- 筛选面板 -->
+  <view wx:if="{{showFilter}}" class="filter-panel card">
+    <view class="fp-group">
+      <text class="fp-label">颜色</text>
+      <view class="fp-chips">
+        <text
+          wx:for="{{colorOptions}}"
+          wx:key="*this"
+          wx:for-item="o"
+          class="fp-chip {{draft.color === o ? 'sel' : ''}}"
+          data-field="color"
+          data-val="{{o}}"
+          bindtap="toggle"
+        >{{ o }}</text>
+      </view>
+    </view>
+    <view class="fp-group">
+      <text class="fp-label">尺码</text>
+      <view class="fp-chips">
+        <text
+          wx:for="{{sizeOptions}}"
+          wx:key="*this"
+          wx:for-item="o"
+          class="fp-chip {{draft.dressSize === o ? 'sel' : ''}}"
+          data-field="dressSize"
+          data-val="{{o}}"
+          bindtap="toggle"
+        >{{ o }}</text>
+      </view>
+    </view>
+    <view class="fp-actions">
+      <button class="fp-btn reset" bindtap="resetFilter">重置</button>
+      <button class="fp-btn confirm" bindtap="applyFilter">确定</button>
+    </view>
+  </view>
+
+  <!-- 瀑布流列表 -->
+  <view class="wall">
+    <view class="wall-col">
+      <view class="ph-card" wx:for="{{listLeft}}" wx:key="dressId" wx:for-item="item" data-id="{{item.dressId}}" bindtap="goDetail">
+        <view class="ph-media">
+          <image class="ph-cover" src="{{item.cover}}" mode="widthFix" lazy-load />
+          <text class="ph-tag" style="background: {{item.statusColor}}">{{ item.statusLabel }}</text>
+        </view>
+        <view class="ph-body">
+          <text class="ph-name">{{ item.dressName }}</text>
+          <text class="ph-meta">{{ item.style || '婚纱礼服' }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="wall-col">
+      <view class="ph-card" wx:for="{{listRight}}" wx:key="dressId" wx:for-item="item" data-id="{{item.dressId}}" bindtap="goDetail">
+        <view class="ph-media">
+          <image class="ph-cover" src="{{item.cover}}" mode="widthFix" lazy-load />
+          <text class="ph-tag" style="background: {{item.statusColor}}">{{ item.statusLabel }}</text>
+        </view>
+        <view class="ph-body">
+          <text class="ph-name">{{ item.dressName }}</text>
+          <text class="ph-meta">{{ item.style || '婚纱礼服' }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading && list.length === 0}}" class="placeholder">加载中…</view>
+  <view wx:if="{{!loading && list.length === 0}}" class="empty">
+    <text class="empty-text">没有符合条件的婚纱</text>
+    <button wx:if="{{hasFilter || keyword}}" class="empty-btn" bindtap="resetAll">清除筛选条件</button>
+  </view>
+  <view wx:if="{{loading && list.length > 0}}" class="loadmore">加载中…</view>
+  <view wx:elif="{{finished && list.length > 0}}" class="loadmore">没有更多了</view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "联系咨询",
+  "usingComponents": {
+    "contact-qr": "/components/contact-qr/index"
+  }
+}

@@ -1,0 +1,44 @@
+.contact-qr {
+  display: flex;
+  align-items: center;
+}
+.contact-qr.compact {
+  flex-direction: column;
+  text-align: center;
+}
+.qr {
+  width: 220rpx;
+  height: 220rpx;
+  flex-shrink: 0;
+  border-radius: 16rpx;
+  background: #fff;
+  border: 1rpx solid #ece4e6;
+  margin-right: 28rpx;
+}
+.contact-qr.compact .qr {
+  width: 300rpx;
+  height: 300rpx;
+  margin-right: 0;
+  margin-bottom: 20rpx;
+}
+.info {
+  flex: 1;
+  min-width: 0;
+}
+.title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2b2622;
+}
+.tip {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #7d7177;
+  line-height: 1.6;
+}
+.tip.muted {
+  color: #999;
+  font-size: 24rpx;
+}

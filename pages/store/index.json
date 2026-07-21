@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "门店信息",
+  "usingComponents": {
+    "contact-qr": "/components/contact-qr/index"
+  }
+}

@@ -1,0 +1,45 @@
+<view class="page">
+  <!-- 搜索 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索编号或款式名" value="{{keyword}}" bindinput="onSearch" bindconfirm="doSearch" />
+    <text class="search-btn" bindtap="doSearch">搜索</text>
+  </view>
+
+  <!-- 状态筛选 -->
+  <scroll-view class="tabs" scroll-x>
+    <view
+      wx:for="{{statusTabs}}"
+      wx:key="value"
+      class="tab {{status === item.value ? 'active' : ''}}"
+      data-value="{{item.value}}"
+      bindtap="switchTab"
+    >{{ item.label }}</view>
+  </scroll-view>
+
+  <!-- 列表 -->
+  <view class="list">
+    <view wx:for="{{list}}" wx:key="dressId" class="card d-item">
+      <image class="d-cover" src="{{item.cover || '/images/dress-default.png'}}" mode="aspectFill" bindtap="goEdit" data-id="{{item.dressId}}" />
+      <view class="d-main">
+        <view class="d-title-row">
+          <text class="d-name">{{ item.dressName }}</text>
+          <text class="d-badge" style="color:{{item.statusColor}};border-color:{{item.statusColor}}">{{ item.statusLabel }}</text>
+        </view>
+        <text class="d-no">编号 {{ item.dressNo }}</text>
+        <text class="d-meta">{{ item.brand || '' }} {{ item.color || '' }} {{ item.dressSize || '' }}</text>
+        <view class="d-actions">
+          <text class="op" bindtap="goEdit" data-id="{{item.dressId}}">编辑</text>
+          <text class="op" bindtap="toggleOnline" data-item="{{item}}">{{ item.status === '0' ? '下线' : '上架' }}</text>
+          <text class="op danger" bindtap="remove" data-item="{{item}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loadmore">加载中...</view>
+  <view wx:elif="{{finished && list.length}}" class="loadmore">没有更多了</view>
+  <view wx:elif="{{!list.length}}" class="placeholder">暂无婚纱,点击右下角新增</view>
+
+  <!-- 新增 FAB -->
+  <view class="fab" bindtap="goAdd">＋</view>
+</view>

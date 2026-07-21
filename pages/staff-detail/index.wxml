@@ -1,0 +1,51 @@
+<view class="page" wx:if="{{loaded}}">
+  <swiper class="banner" indicator-dots="{{gallery.length > 1}}" indicator-active-color="#c89b6d" circular>
+    <swiper-item wx:for="{{gallery}}" wx:key="*this" wx:for-item="img">
+      <image class="banner-img" src="{{img}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <view class="card sec">
+    <view class="title-row">
+      <text class="name">{{ staff.staffName }}</text>
+      <text class="type-tag">化妆造型</text>
+    </view>
+    <view class="meta">
+      <text class="level">{{ levelLabel }}</text>
+      <text class="exp" wx:if="{{staff.yearsExp}}">· 从业 {{ staff.yearsExp }} 年</text>
+    </view>
+    <view class="tags" wx:if="{{tagList.length}}">
+      <text class="tag" wx:for="{{tagList}}" wx:key="*this" wx:for-item="tg">{{ tg }}</text>
+    </view>
+    <text class="hint">本页仅展示化妆造型人员介绍。预约与费用请联系客服或到店咨询确认。</text>
+  </view>
+
+  <view class="card sec" wx:if="{{staff.intro}}">
+    <view class="sec-title">个人简介</view>
+    <text class="intro">{{ staff.intro }}</text>
+  </view>
+
+  <view class="card sec" wx:if="{{portfolioList.length}}">
+    <view class="sec-title">作品集</view>
+    <view class="works">
+      <image
+        class="work"
+        wx:for="{{portfolioList}}"
+        wx:key="*this"
+        wx:for-item="img"
+        wx:for-index="idx"
+        src="{{img}}"
+        mode="aspectFill"
+        data-idx="{{idx}}"
+        bindtap="preview"
+      />
+    </view>
+  </view>
+
+  <view class="footer">
+    <button class="btn-ghost store-btn" bindtap="goStore">门店信息</button>
+    <button class="btn-primary book-btn" bindtap="goContact">联系客服咨询</button>
+  </view>
+</view>
+
+<view wx:else class="placeholder">加载中…</view>

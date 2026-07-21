@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/dress/index",
+    "pages/staff/index",
+    "pages/about/index",
+    "pages/dress-detail/index",
+    "pages/staff-detail/index",
+    "pages/contact/index",
+    "pages/store/index",
+    "pages/content/index",
+    "pages/content-detail/index",
+    "pages/merchant/index",
+    "pages/merchant-login/index",
+    "pages/merchant-dress/index",
+    "pages/merchant-dress/edit",
+    "pages/merchant-staff/index",
+    "pages/merchant-staff/edit",
+    "pages/merchant-style/index",
+    "pages/merchant-store/index"
+  ],
+  "tabBar": {
+    "custom": true,
+    "color": "#b0a99f",
+    "selectedColor": "#c8a26d",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "首页" },
+      { "pagePath": "pages/dress/index", "text": "婚纱" },
+      { "pagePath": "pages/staff/index", "text": "化妆师" },
+      { "pagePath": "pages/about/index", "text": "我的" }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {},
+  "window": {
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f5f6f8",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "花田喜事",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

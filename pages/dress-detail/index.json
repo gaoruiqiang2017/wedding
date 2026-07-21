@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "婚纱详情",
+  "usingComponents": {
+    "review-list": "/components/review-list/index"
+  }
+}

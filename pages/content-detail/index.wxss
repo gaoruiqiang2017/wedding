@@ -1,0 +1,67 @@
+.page {
+  padding-bottom: 160rpx;
+}
+.cover {
+  width: 100%;
+}
+.body {
+  padding: 28rpx;
+}
+.title {
+  font-size: 38rpx;
+  font-weight: 700;
+}
+.meta {
+  display: flex;
+  color: #8f857a;
+  font-size: 24rpx;
+  margin: 16rpx 0 24rpx;
+}
+.meta text {
+  margin-right: 24rpx;
+}
+.content {
+  font-size: 30rpx;
+  line-height: 1.7;
+  color: #333;
+}
+.dress-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32rpx;
+  padding: 24rpx 28rpx;
+  background: #fff7ec;
+  border-radius: 14rpx;
+}
+.dress-link-text {
+  font-size: 28rpx;
+  color: #c8a26d;
+  font-weight: 600;
+}
+.dress-link-arrow {
+  color: #c8a26d;
+  font-size: 32rpx;
+}
+.like-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+.like-btn {
+  background: #fff0f0;
+  color: #e4393c;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+.like-btn::after {
+  border: none;
+}
+.like-btn.liked {
+  background: #e4393c;
+  color: #fff;
+}

@@ -1,0 +1,91 @@
+<view class="page">
+  <!-- 品牌头 + 搜索 -->
+  <view class="hero">
+    <view class="hero-top">
+      <text class="brand">花田喜事</text>
+      <text class="shop">{{ shopName || '婚纱礼服 · 化妆造型' }}</text>
+    </view>
+    <text class="slogan">浏览门店婚纱款式与化妆造型作品</text>
+    <view class="search-bar">
+      <view class="ic ic-search s-ico"></view>
+      <input
+        class="search-input"
+        value="{{keyword}}"
+        placeholder="搜索婚纱款式名称"
+        placeholder-class="ph"
+        confirm-type="search"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+      />
+      <text class="search-btn" catchtap="onSearch">搜索</text>
+    </view>
+  </view>
+
+  <!-- 精选婚纱(瀑布流) -->
+  <view class="sec sec-lead">
+    <view class="section-head">
+      <text class="section-title">精选<text class="accent">婚纱</text></text>
+      <text class="more-link" bindtap="goDressHall">全部婚纱 ›</text>
+    </view>
+
+    <view wx:if="{{dressLoading && dressLeft.length === 0 && dressRight.length === 0}}" class="placeholder">加载中…</view>
+    <view wx:elif="{{dressLeft.length === 0 && dressRight.length === 0}}" class="placeholder">暂无可展示的款式</view>
+    <view wx:else class="wall">
+      <view class="wall-col">
+        <view class="ph-card" wx:for="{{dressLeft}}" wx:key="dressId" wx:for-item="item" data-id="{{item.dressId}}" bindtap="goDetail">
+          <image class="ph-cover" src="{{item.cover}}" mode="widthFix" lazy-load />
+          <view class="ph-body">
+            <text class="ph-name">{{ item.dressName }}</text>
+            <text class="ph-meta">{{ item.style || '婚纱礼服' }}</text>
+          </view>
+        </view>
+      </view>
+      <view class="wall-col">
+        <view class="ph-card" wx:for="{{dressRight}}" wx:key="dressId" wx:for-item="item" data-id="{{item.dressId}}" bindtap="goDetail">
+          <image class="ph-cover" src="{{item.cover}}" mode="widthFix" lazy-load />
+          <view class="ph-body">
+            <text class="ph-name">{{ item.dressName }}</text>
+            <text class="ph-meta">{{ item.style || '婚纱礼服' }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 明星化妆师 -->
+  <view class="sec" wx:if="{{staffList.length}}">
+    <view class="section-head">
+      <text class="section-title">明星<text class="accent">化妆师</text></text>
+      <text class="more-link" bindtap="goStaff">全部 ›</text>
+    </view>
+    <scroll-view class="staff-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="staff-card" wx:for="{{staffList}}" wx:key="staffId" wx:for-item="s" data-id="{{s.staffId}}" bindtap="goStaffDetail">
+        <image class="staff-avatar" src="{{s.cover}}" mode="aspectFill" lazy-load />
+        <text class="staff-name">{{ s.staffName }}</text>
+        <text class="staff-level">{{ s.levelLabel || '化妆造型' }}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 门店一览 -->
+  <view class="sec">
+    <view class="store-card card" bindtap="goStore">
+      <view class="store-head">
+        <text class="store-name">{{ store.storeName || shopName || '花田喜事婚纱馆' }}</text>
+        <view class="store-more">门店详情<view class="ic ic-arrow store-more-arr"></view></view>
+      </view>
+      <view class="store-row" wx:if="{{store.businessHours}}">
+        <view class="ic-badge"><view class="ic ic-clock"></view></view>
+        <text class="store-text">{{ store.businessHours }}</text>
+      </view>
+      <view class="store-row">
+        <view class="ic-badge"><view class="ic ic-pin"></view></view>
+        <text class="store-text">{{ store.address || '太原市清徐县紫林路双湖水街 · 花田喜事美妆婚纱馆' }}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="beian">
+    <text class="beian-link" data-url="https://beian.miit.gov.cn/" bindtap="openUrl">京ICP备2026036329号-2X</text>
+  </view>
+</view>

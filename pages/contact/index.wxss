@@ -1,0 +1,55 @@
+.page {
+  min-height: 100vh;
+  padding: 24rpx 24rpx 160rpx;
+}
+.card {
+  margin-bottom: 24rpx;
+}
+.hero .eyebrow {
+  display: block;
+  font-size: 22rpx;
+  color: #c8a26d;
+  letter-spacing: 4rpx;
+  margin-bottom: 16rpx;
+}
+.hero .title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #2b2622;
+  line-height: 1.4;
+}
+.hero .desc {
+  display: block;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  color: #7d7177;
+  line-height: 1.7;
+}
+.sec-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2b2622;
+  margin-bottom: 16rpx;
+}
+.addr {
+  display: block;
+  font-size: 26rpx;
+  color: #7d7177;
+  line-height: 1.7;
+}
+.link {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  color: #c8a26d;
+}
+.beian {
+  padding: 16rpx 0 40rpx;
+  text-align: center;
+}
+.beian-link {
+  display: block;
+  font-size: 22rpx;
+  color: #8f857a;
+  line-height: 1.8;
+}

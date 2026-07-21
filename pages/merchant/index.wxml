@@ -1,0 +1,27 @@
+<view class="page">
+  <view class="card tip">
+    <text class="tip-text">你好,{{ name }}。在这里维护对外展示的婚纱照片与化妆师信息,保存后展示页即时可见。</text>
+  </view>
+
+  <!-- 内容管理入口 -->
+  <view class="card menu">
+    <view class="menu-item" bindtap="goDressAdmin">
+      <view class="mi-left"><text class="mi-icon">👗</text><text>婚纱照片</text></view>
+      <view class="menu-right"><text class="mi-sub">新增 / 编辑 / 上下架</text><text class="arrow">›</text></view>
+    </view>
+    <view class="menu-item" bindtap="goStaffAdmin">
+      <view class="mi-left"><text class="mi-icon">💄</text><text>化妆师</text></view>
+      <view class="menu-right"><text class="mi-sub">新增 / 编辑 / 启停用</text><text class="arrow">›</text></view>
+    </view>
+    <view class="menu-item" bindtap="goStyleAdmin">
+      <view class="mi-left"><text class="mi-icon">🏷️</text><text>婚纱风格</text></view>
+      <view class="menu-right"><text class="mi-sub">维护风格标签</text><text class="arrow">›</text></view>
+    </view>
+    <view class="menu-item" bindtap="goStore">
+      <view class="mi-left"><text class="mi-icon">🏪</text><text>门店信息</text></view>
+      <view class="menu-right"><text class="mi-sub">名称 / 地址 / 客服二维码</text><text class="arrow">›</text></view>
+    </view>
+  </view>
+
+  <view class="logout-btn" bindtap="logout">退出内容管理</view>
+</view>

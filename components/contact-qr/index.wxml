@@ -1,0 +1,8 @@
+<view class="contact-qr {{compact ? 'compact' : ''}}">
+  <image class="qr" src="{{qr}}" mode="aspectFit" bindtap="previewQr" />
+  <view class="info">
+    <text class="title">{{ title }}</text>
+    <text class="tip">{{ tip }}</text>
+    <text class="tip muted">{{ remark }}</text>
+  </view>
+</view>

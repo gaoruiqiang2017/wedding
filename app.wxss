@@ -1,0 +1,252 @@
+/* 全局主题:花田喜事门店展示 —— 内容优先、克制留白、香槟金点缀
+ * 配色规范
+ *   主文本 #2b2622  次文本 #6f655b  弱文本/说明 #8f857a  占位 #bbb
+ *   强调金 #c8a26d  深金(金字/描边) #b0885a  分隔线 #efe7de
+ */
+page {
+  background: #faf8f5;
+  color: #2b2622;
+  font-size: 28rpx;
+  line-height: 1.55;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 通用卡片:柔和圆角与轻阴影 */
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 6rpx 24rpx rgba(43, 38, 34, 0.06);
+}
+
+.text-muted {
+  color: #8f857a;
+}
+
+/* 分区标题(通用) */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+.section-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2b2622;
+  letter-spacing: 1rpx;
+}
+.section-title .accent {
+  color: #c8a26d;
+}
+.more-link {
+  color: #b0885a;
+  font-size: 26rpx;
+}
+
+/* 胶囊标签 chip(通用) */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 12rpx 30rpx;
+  background: #f1ebe2;
+  color: #6f655b;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  white-space: nowrap;
+}
+.chip.on {
+  background: #c8a26d;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4rpx 14rpx rgba(200, 162, 109, 0.32);
+}
+
+/* 双列瀑布流(通用) */
+.wall {
+  display: flex;
+  gap: 20rpx;
+}
+.wall-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 主按钮 / 次按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #d3b079 0%, #c19255 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8rpx 20rpx rgba(193, 146, 85, 0.26);
+}
+.btn-primary::after {
+  border: none;
+}
+.btn-ghost {
+  background: #fff;
+  color: #b0885a;
+  border: 1rpx solid #e6d6bd;
+}
+.btn-ghost::after {
+  border: none;
+}
+
+/* 通用加载/空态 */
+.loadmore {
+  text-align: center;
+  color: #a4998d;
+  padding: 40rpx 0;
+  font-size: 26rpx;
+}
+.placeholder {
+  text-align: center;
+  color: #a4998d;
+  font-size: 26rpx;
+  padding: 60rpx 0;
+}
+
+/* ===== CSS 线性图标系统(替代 emoji,颜色随 currentColor) ===== */
+.ic {
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+  vertical-align: middle;
+}
+/* 右向 chevron 箭头 */
+.ic-arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 3rpx solid currentColor;
+  border-right: 3rpx solid currentColor;
+  transform: rotate(45deg);
+}
+/* 放大镜 */
+.ic-search {
+  width: 32rpx;
+  height: 32rpx;
+}
+.ic-search::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 22rpx;
+  height: 22rpx;
+  border: 3rpx solid currentColor;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.ic-search::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 1rpx;
+  width: 12rpx;
+  height: 3rpx;
+  background: currentColor;
+  border-radius: 2rpx;
+  transform: rotate(45deg);
+  transform-origin: right center;
+}
+/* 定位针 */
+.ic-pin {
+  width: 26rpx;
+  height: 32rpx;
+}
+.ic-pin::before {
+  content: '';
+  position: absolute;
+  left: 3rpx;
+  top: 0;
+  width: 20rpx;
+  height: 20rpx;
+  border: 3rpx solid currentColor;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  box-sizing: border-box;
+}
+.ic-pin::after {
+  content: '';
+  position: absolute;
+  left: 11rpx;
+  top: 8rpx;
+  width: 6rpx;
+  height: 6rpx;
+  background: currentColor;
+  border-radius: 50%;
+}
+/* 时钟 */
+.ic-clock {
+  width: 30rpx;
+  height: 30rpx;
+  border: 3rpx solid currentColor;
+  border-radius: 50%;
+}
+.ic-clock::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 6rpx;
+  width: 3rpx;
+  height: 9rpx;
+  margin-left: -1.5rpx;
+  background: currentColor;
+  border-radius: 2rpx;
+}
+.ic-clock::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9rpx;
+  height: 3rpx;
+  margin-top: -1.5rpx;
+  background: currentColor;
+  border-radius: 2rpx;
+}
+/* 对话气泡 */
+.ic-chat {
+  width: 32rpx;
+  height: 26rpx;
+  border: 3rpx solid currentColor;
+  border-radius: 8rpx;
+}
+.ic-chat::after {
+  content: '';
+  position: absolute;
+  left: 8rpx;
+  bottom: -9rpx;
+  width: 0;
+  height: 0;
+  border-left: 5rpx solid transparent;
+  border-right: 7rpx solid transparent;
+  border-top: 9rpx solid currentColor;
+}
+/* 圆形图标容器(浅金底) */
+.ic-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  background: #f4ecdf;
+  color: #b0885a;
+  flex-shrink: 0;
+}
+.ic-badge-lg {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+/* 金色装饰短线(分区/品牌点缀) */
+.accent-line {
+  width: 56rpx;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, #d3b079, #c19255);
+}

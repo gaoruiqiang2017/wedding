@@ -1,0 +1,48 @@
+<view class="page" wx:if="{{loaded}}">
+  <!-- 图册 -->
+  <swiper class="banner" indicator-dots="{{album.length > 1}}" indicator-active-color="#c89b6d" circular>
+    <swiper-item wx:for="{{album}}" wx:key="*this" wx:for-item="img">
+      <image class="banner-img" src="{{img}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 基本信息 -->
+  <view class="card sec">
+    <view class="title-row">
+      <text class="name">{{ dress.dressName }}</text>
+      <text class="tag" style="background: {{statusColor}}">{{ statusLabel }}</text>
+    </view>
+    <view class="attrs">
+      <view class="attr"><text class="k">编号</text><text class="v">{{ dress.dressNo || '-' }}</text></view>
+      <view class="attr"><text class="k">风格</text><text class="v">{{ styleLabel || '-' }}</text></view>
+      <view class="attr"><text class="k">颜色</text><text class="v">{{ dress.color || '-' }}</text></view>
+      <view class="attr"><text class="k">尺码</text><text class="v">{{ dress.dressSize || '-' }}</text></view>
+      <view class="attr"><text class="k">品牌</text><text class="v">{{ dress.brand || '-' }}</text></view>
+    </view>
+    <text class="hint">本页仅展示款式信息。可租情况、档期与费用请联系客服或到店咨询确认。</text>
+  </view>
+
+  <!-- 相关穿搭案例 -->
+  <view wx:if="{{relatedContents.length}}" class="card sec">
+    <view class="sec-title">相关穿搭案例</view>
+    <scroll-view scroll-x class="content-scroll">
+      <view wx:for="{{relatedContents}}" wx:key="contentId" wx:for-item="c" class="content-card" data-id="{{c.contentId}}" bindtap="goContent">
+        <image class="content-cover" src="{{c.cover}}" mode="aspectFill" />
+        <text class="content-title">{{ c.title }}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 用户评价 -->
+  <view class="card sec">
+    <review-list dress-id="{{dressId}}" title="用户评价"></review-list>
+  </view>
+
+  <!-- 底部悬浮咨询栏 -->
+  <view class="footer">
+    <button class="btn-ghost store-btn" bindtap="goStore">门店信息</button>
+    <button class="btn-primary book-btn" bindtap="goContact">联系客服咨询</button>
+  </view>
+</view>
+
+<view wx:else class="placeholder">加载中…</view>

@@ -1,0 +1,66 @@
+<view class="page">
+  <!-- 登录 / 用户卡片(浏览身份,所有人一致) -->
+  <view class="user-card card">
+    <block wx:if="{{loggedIn}}">
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{profile.avatar || defaultAvatar}}" mode="aspectFill" />
+      </button>
+      <view class="user-main">
+        <input
+          class="nickname"
+          type="nickname"
+          value="{{nickName}}"
+          placeholder="点击设置微信昵称"
+          placeholder-class="ph"
+          bindblur="onNickname"
+          bindchange="onNickname"
+        />
+      </view>
+      <text class="logout" catchtap="logout">退出</text>
+    </block>
+    <view wx:else class="login-row" bindtap="login">
+      <image class="avatar" src="{{defaultAvatar}}" mode="aspectFill" />
+      <view class="user-main">
+        <text class="user-name">点击登录</text>
+        <text class="user-sub">微信一键登录，完善头像</text>
+      </view>
+      <view class="ic ic-arrow arrow"></view>
+    </view>
+  </view>
+
+  <view class="card hero">
+    <image class="logo" src="/images/logo.png" mode="aspectFit" />
+    <text class="title">关于花田喜事</text>
+    <text class="desc">本小程序用于门店信息展示与礼服款式浏览。试纱与租赁请联系客服或到店咨询。</text>
+  </view>
+
+  <view class="card menu">
+    <view class="menu-item" bindtap="goStore">
+      <text>门店信息</text>
+      <view class="menu-right">
+        <text class="menu-sub" wx:if="{{shopName}}">{{ shopName }}</text>
+        <view class="ic ic-arrow arrow"></view>
+      </view>
+    </view>
+    <view class="menu-item" bindtap="goContact">
+      <text>联系咨询</text>
+      <view class="ic ic-arrow arrow"></view>
+    </view>
+    <view class="menu-item" bindtap="goContent">
+      <text>备婚指南</text>
+      <view class="ic ic-arrow arrow"></view>
+    </view>
+    <view class="menu-item" bindtap="goManage">
+      <text>内容管理</text>
+      <view class="menu-right">
+        <text class="menu-sub">{{ isMerchant ? '已登录' : '' }}</text>
+        <view class="ic ic-arrow arrow"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="ver text-muted">花田喜事门店展示 v{{ version }}</view>
+  <view class="beian">
+    <text class="beian-link" data-url="https://beian.miit.gov.cn/" bindtap="openUrl">京ICP备2026036329号-2X</text>
+  </view>
+</view>

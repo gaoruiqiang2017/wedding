@@ -1,0 +1,50 @@
+<view class="page">
+  <view class="card form">
+    <view class="field">
+      <text class="label req">门店名称</text>
+      <input class="input" placeholder="请输入门店名称" value="{{form.storeName}}" data-field="storeName" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="label">地址</text>
+      <input class="input" placeholder="门店详细地址" value="{{form.address}}" data-field="address" bindinput="onInput" />
+    </view>
+    <view class="field col">
+      <text class="label">门店定位坐标</text>
+      <input class="input" placeholder="格式:纬度,经度  如 39.908823,116.397470" value="{{coordText}}" bindinput="onCoordInput" />
+      <text class="coord-tip">决定地图上「针」的位置(与上面的地址文字无关)。到腾讯坐标拾取器 lbs.qq.com/getPoint/ 搜索门店、点选位置后,复制坐标粘贴到此处。当前:纬度 {{form.latitude || '—'}} / 经度 {{form.longitude || '—'}}</text>
+    </view>
+    <view class="field">
+      <text class="label">联系电话</text>
+      <input class="input" placeholder="选填" value="{{form.phone}}" data-field="phone" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="label">营业时间</text>
+      <input class="input" placeholder="如 09:00-20:00" value="{{form.businessHours}}" data-field="businessHours" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="label">客服微信号</text>
+      <input class="input" placeholder="选填" value="{{form.wechat}}" data-field="wechat" bindinput="onInput" />
+    </view>
+    <view class="field col">
+      <text class="label">门店公告 / 简介</text>
+      <textarea class="textarea" placeholder="选填" value="{{form.notice}}" data-field="notice" bindinput="onInput" />
+    </view>
+  </view>
+
+  <view class="card qr-card">
+    <text class="sec-title">客服微信二维码</text>
+    <view class="qr-box">
+      <block wx:if="{{wechatQrUrl}}">
+        <image class="qr-img" src="{{wechatQrUrl}}" mode="aspectFit" bindtap="previewQr" />
+        <view class="qr-ops">
+          <text class="qr-op" catchtap="chooseQr">更换</text>
+          <text class="qr-op del" catchtap="removeQr">移除</text>
+        </view>
+      </block>
+      <view wx:else class="qr-ph" bindtap="chooseQr">＋ 上传二维码</view>
+    </view>
+    <text class="qr-tip">上传后将展示在「门店信息」与「联系咨询」页,顾客可扫码添加客服。</text>
+  </view>
+
+  <button class="btn-primary submit" loading="{{saving}}" bindtap="save">保存</button>
+</view>

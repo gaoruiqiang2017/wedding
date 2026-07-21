@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="card tip">
+    <text class="tip-text">这里维护婚纱的风格标签,新增后可在婚纱编辑页选择,并作为顾客端的筛选项。改名会同步更新已使用该风格的婚纱。</text>
+  </view>
+
+  <view class="card add-box">
+    <input class="add-input" placeholder="新增风格名称,如 波西米亚" value="{{input}}" bindinput="onInput" confirm-type="done" bindconfirm="add" />
+    <button class="add-btn" loading="{{saving}}" bindtap="add">添加</button>
+  </view>
+
+  <view class="card" wx:if="{{styles.length}}">
+    <view class="style-item" wx:for="{{styles}}" wx:key="dictCode">
+      <text class="style-name">{{ item.dictLabel }}</text>
+      <view class="style-ops">
+        <text class="style-op edit" catchtap="rename" data-code="{{item.dictCode}}" data-label="{{item.dictLabel}}">改名</text>
+        <text class="style-op del" catchtap="remove" data-code="{{item.dictCode}}" data-label="{{item.dictLabel}}">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:elif="{{!loading}}" class="empty">还没有风格,先在上方添加。</view>
+</view>

@@ -1,0 +1,21 @@
+<view class="page">
+  <view class="card hero">
+    <text class="eyebrow">联系门店</text>
+    <text class="title">预约与咨询请联系客服</text>
+    <text class="desc">本小程序仅作门店信息与款式展示，不提供在线交易与下单。费用与档期请到店或联系客服沟通确认。</text>
+  </view>
+
+  <view class="card">
+    <contact-qr compact="{{true}}" qr="{{qrUrl}}"></contact-qr>
+  </view>
+
+  <view class="card">
+    <view class="sec-title">门店地址</view>
+    <text class="addr">太原市清徐县紫林路双湖水街 · 花田喜事美妆婚纱馆</text>
+    <view class="link" bindtap="goStore">查看门店信息 ›</view>
+  </view>
+
+  <view class="beian">
+    <text class="beian-link" data-url="https://beian.miit.gov.cn/" bindtap="openUrl">京ICP备2026036329号-2X</text>
+  </view>
+</view>

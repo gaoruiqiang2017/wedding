@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "备婚指南",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 80,
+  "usingComponents": {}
+}

@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索化妆师姓名" value="{{keyword}}" bindinput="onSearch" bindconfirm="doSearch" />
+    <text class="search-btn" bindtap="doSearch">搜索</text>
+  </view>
+
+  <scroll-view class="tabs" scroll-x>
+    <view
+      wx:for="{{statusTabs}}"
+      wx:key="value"
+      class="tab {{status === item.value ? 'active' : ''}}"
+      data-value="{{item.value}}"
+      bindtap="switchTab"
+    >{{ item.label }}</view>
+  </scroll-view>
+
+  <view class="list">
+    <view wx:for="{{list}}" wx:key="staffId" class="card s-item">
+      <image class="s-avatar" src="{{item.avatarUrl || '/images/staff-default.png'}}" mode="aspectFill" bindtap="goEdit" data-id="{{item.staffId}}" />
+      <view class="s-main">
+        <view class="s-title-row">
+          <text class="s-name">{{ item.staffName }}</text>
+          <text class="s-badge" style="color:{{item.statusColor}};border-color:{{item.statusColor}}">{{ item.statusLabel }}</text>
+        </view>
+        <text class="s-meta">{{ item.typeLabel }} · {{ item.levelLabel }}{{ item.phone ? ' · ' + item.phone : '' }}</text>
+        <view class="s-actions">
+          <text class="op" bindtap="goEdit" data-id="{{item.staffId}}">编辑</text>
+          <text class="op" bindtap="toggleStatus" data-item="{{item}}">{{ item.status === '0' ? '停用' : '启用' }}</text>
+          <text class="op danger" bindtap="remove" data-item="{{item}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loadmore">加载中...</view>
+  <view wx:elif="{{finished && list.length}}" class="loadmore">没有更多了</view>
+  <view wx:elif="{{!list.length}}" class="placeholder">暂无化妆师,点击右下角新增</view>
+
+  <view class="fab" bindtap="goAdd">＋</view>
+</view>

@@ -1,0 +1,54 @@
+<view class="page">
+  <!-- 门店卡片 -->
+  <view class="card store">
+    <view class="store-name">{{ store.storeName || shopName || '花田喜事婚纱馆' }}</view>
+    <view class="info-row" wx:if="{{store.businessHours}}">
+      <view class="ic-badge"><view class="ic ic-clock"></view></view>
+      <text class="info-text">{{ store.businessHours }}</text>
+    </view>
+    <view class="info-row" data-text="{{store.address}}" bindtap="copy">
+      <view class="ic-badge"><view class="ic ic-pin"></view></view>
+      <text class="info-text">{{ store.address || '地址待完善' }}</text>
+      <text class="copy" wx:if="{{store.address}}">复制</text>
+    </view>
+    <view class="info-row" wx:if="{{store.notice}}">
+      <view class="ic-badge"><view class="ic ic-chat"></view></view>
+      <text class="info-text">{{ store.notice }}</text>
+    </view>
+  </view>
+
+  <!-- 地图 -->
+  <view class="card map-card" wx:if="{{hasGeo}}">
+    <map class="map" latitude="{{store.latitude}}" longitude="{{store.longitude}}" markers="{{markers}}" scale="16" enable-zoom enable-scroll show-location></map>
+    <button class="btn-primary nav-btn" bindtap="openLocation">导航到门店</button>
+  </view>
+  <view class="card map-card no-geo" wx:else>
+    <text class="no-geo-text">暂未设置门店定位，可复制地址后在地图 App 中导航。</text>
+    <button class="btn-ghost" wx:if="{{store.address}}" data-text="{{store.address}}" bindtap="copy">复制门店地址</button>
+  </view>
+
+  <!-- 门店服务 -->
+  <view class="card sec">
+    <view class="sec-title">门店服务</view>
+    <view class="svc" wx:for="{{services}}" wx:key="title" wx:for-item="s">
+      <text class="svc-title">{{ s.title }}</text>
+      <text class="svc-desc">{{ s.desc }}</text>
+    </view>
+  </view>
+
+  <!-- 联系咨询 -->
+  <view class="card sec">
+    <view class="sec-title">联系咨询</view>
+    <view class="qr-block">
+      <contact-qr qr="{{qrUrl}}"></contact-qr>
+    </view>
+    <view class="contact-item" bindtap="goContact">
+      <view class="ic-badge ic-badge-lg"><view class="ic ic-chat"></view></view>
+      <view class="contact-main">
+        <text class="contact-label">联系客服</text>
+        <text class="contact-val">联系客服预约试纱与咨询</text>
+      </view>
+      <text class="contact-action">进入</text>
+    </view>
+  </view>
+</view>

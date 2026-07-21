@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="grid">
+    <view class="s-card" wx:for="{{list}}" wx:key="staffId" wx:for-item="item" data-id="{{item.staffId}}" bindtap="goDetail">
+      <image class="s-cover" src="{{item.avatar}}" mode="aspectFill" lazy-load />
+      <view class="s-body">
+        <text class="s-name">{{ item.staffName }}</text>
+        <view class="s-meta">
+          <text>{{ item.levelLabel || '化妆造型' }}</text>
+          <text wx:if="{{item.yearsExp}}"> · {{ item.yearsExp }}年</text>
+        </view>
+        <view class="s-tags" wx:if="{{item.tagList.length}}">
+          <text class="s-tag" wx:for="{{item.tagList}}" wx:key="*this" wx:for-item="tg">{{ tg }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading && list.length === 0}}" class="placeholder">加载中…</view>
+  <view wx:if="{{!loading && list.length === 0}}" class="placeholder">暂无相关人员</view>
+  <view wx:if="{{loading && list.length > 0}}" class="loadmore">加载中…</view>
+  <view wx:elif="{{finished && list.length > 0}}" class="loadmore">没有更多了</view>
+</view>
