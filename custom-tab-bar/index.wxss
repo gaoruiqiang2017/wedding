@@ -21,13 +21,13 @@
 }
 
 .tab-icon {
-  width: 46rpx;
-  height: 46rpx;
+  width: 56rpx;
+  height: 56rpx;
 }
 
 .tab-text {
   margin-top: 6rpx;
-  font-size: 20rpx;
+  font-size: 22rpx;
   color: #9a8d7e;
 }
 
