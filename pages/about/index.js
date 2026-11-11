@@ -11,7 +11,7 @@ import {
   removeMerchantToken,
   removeMerchant,
 } from '../../utils/auth';
-import { wxLoginOnce } from '../../utils/login';
+import { wxLoginOnce, ensureMerchantLogin } from '../../utils/login';
 import { logout as apiLogout, updateMerchantNickName } from '../../api/auth';
 import { updateCustomerNickname } from '../../api/customer';
 
@@ -175,26 +175,18 @@ Page({
   },
 
   goManage() {
-    // 已是管理员 → 直接进内容管理
-    if (this.data.isMerchant) {
-      wx.navigateTo({ url: '/pages/merchant/index' });
-      return;
-    }
-    // 静默微信登录识别 openid:管理员进管理页,客户提示无法操作(不再走密码登录页)
+    // 每次进入都静默刷新管理 token(避免服务重启后本地旧 token 失效却仍跳过登录)
     wx.showLoading({ title: '正在识别', mask: true });
-    wxLoginOnce()
-      .then((data) => {
+    ensureMerchantLogin()
+      .then(() => {
         wx.hideLoading();
         this.syncLoginState();
-        if (data && data.accountType === 'merchant') {
-          if (!this.data.nickName) this.setData({ showNickPanel: true });
-          wx.navigateTo({ url: '/pages/merchant/index' });
-          return;
-        }
-        wx.showToast({ title: '当前账号无法操作内容管理', icon: 'none' });
+        if (!this.data.nickName) this.setData({ showNickPanel: true });
+        wx.navigateTo({ url: '/pages/merchant/index' });
       })
       .catch(() => {
         wx.hideLoading();
+        this.syncLoginState();
         wx.showToast({ title: '当前账号无法操作内容管理', icon: 'none' });
       });
   },

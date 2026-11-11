@@ -70,7 +70,9 @@ const request = (options) => {
       data: options.data || {},
       success: (res) => {
         const body = res.data;
-        if (res.statusCode === 401) {
+        const code = body && body.code !== undefined ? body.code : 200;
+        // 后端 Sa-Token 鉴权失败常返回 HTTP 200 + body.code=401
+        if (res.statusCode === 401 || code === 401) {
           // 只清除本次请求所用的那套登录态,避免误伤另一态
           if (options.useMerchantToken) {
             removeMerchantToken();
@@ -79,7 +81,7 @@ const request = (options) => {
             removeToken();
             removeCustomer();
           }
-          wx.showToast({ title: '登录已过期，请重新登录', icon: 'none' });
+          wx.showToast({ title: '登录已过期，请重新进入内容管理', icon: 'none' });
           reject(new Error('未登录'));
           return;
         }
@@ -89,7 +91,6 @@ const request = (options) => {
           reject(new Error(msg));
           return;
         }
-        const code = body && body.code !== undefined ? body.code : 200;
         if (code === 200) {
           resolve(body);
         } else {

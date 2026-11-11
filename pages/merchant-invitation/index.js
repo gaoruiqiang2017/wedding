@@ -85,8 +85,8 @@ Page({
             this.load();
           })
           .catch(() => {
+            // request 已 toast 后端原文(如发布校验失败原因)
             wx.hideLoading();
-            wx.showToast({ title: '操作失败', icon: 'none' });
           });
       },
     });
@@ -107,8 +107,8 @@ Page({
             this.load();
           })
           .catch(() => {
+            // request 已 toast 后端原文
             wx.hideLoading();
-            wx.showToast({ title: '删除失败', icon: 'none' });
           });
       },
     });

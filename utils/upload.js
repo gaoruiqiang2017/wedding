@@ -26,6 +26,31 @@ export function chooseAndUpload() {
   });
 }
 
+/** 选择并上传背景音乐(聊天记录文件),支持 mp3/m4a/aac/wav */
+export function chooseAndUploadAudio() {
+  return new Promise((resolve, reject) => {
+    wx.chooseMessageFile({
+      count: 1,
+      type: 'file',
+      extension: ['mp3', 'm4a', 'aac', 'wav'],
+      success: (r) => {
+        const file = r.tempFiles && r.tempFiles[0];
+        if (!file || !file.path) {
+          reject(new Error('未选择音频'));
+          return;
+        }
+        // 约 20MB 上限,避免小内存机上传过大文件
+        if (file.size && file.size > 20 * 1024 * 1024) {
+          reject(new Error('音频请控制在 20MB 以内'));
+          return;
+        }
+        uploadFile(file.path).then(resolve).catch(reject);
+      },
+      fail: reject,
+    });
+  });
+}
+
 /** 上传本地临时文件路径,resolve 相对 URL */
 export function uploadFile(filePath) {
   return new Promise((resolve, reject) => {

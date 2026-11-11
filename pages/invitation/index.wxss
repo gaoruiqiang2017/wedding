@@ -1,6 +1,29 @@
 .page { min-height: 100vh; padding-bottom: 80rpx; }
 .placeholder { padding: 120rpx 0; text-align: center; color: #8f857a; }
 .footer-tip { margin: 48rpx 24rpx 0; text-align: center; font-size: 22rpx; color: #a4998d; }
+.preview-bar {
+  position: sticky; top: 0; z-index: 90;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16rpx 24rpx; background: rgba(43, 38, 34, 0.88); color: #fff;
+}
+.preview-bar-text { font-size: 24rpx; opacity: 0.92; }
+.preview-bar-back {
+  font-size: 24rpx; padding: 8rpx 18rpx; border-radius: 999rpx;
+  background: rgba(200, 162, 109, 0.95); color: #fff;
+}
+.music-fab {
+  position: fixed; right: 28rpx; top: 180rpx; z-index: 100;
+  width: 72rpx; height: 72rpx; border-radius: 50%;
+  background: rgba(43, 38, 34, 0.55); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.18);
+}
+.music-fab-icon { font-size: 34rpx; line-height: 1; }
+.music-fab.spin { animation: music-spin 6s linear infinite; }
+@keyframes music-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 .names { display: block; font-size: 44rpx; font-weight: 600; line-height: 1.35; }
 .sub, .info-line { display: block; margin-top: 12rpx; font-size: 26rpx; color: #6f655b; }
 .welcome { display: block; font-size: 28rpx; line-height: 1.8; white-space: pre-wrap; color: #2b2622; }

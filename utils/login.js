@@ -15,6 +15,8 @@ import {
   getCustomer,
   setMerchantToken,
   setMerchant,
+  removeMerchantToken,
+  removeMerchant,
 } from './auth';
 
 /** 按后端返回的 accountType 写入对应登录态(不清除另一态),返回登录数据 */
@@ -66,5 +68,21 @@ export function wxLoginOnce() {
 export function ensureLogin() {
   if (getToken()) return Promise.resolve(getCustomer());
   return wxLoginOnce();
+}
+
+/**
+ * 进入内容管理前强制静默刷新管理态。
+ * 服务重启后 Redis 会话失效时,本地仍可能残留旧 merchant token;
+ * 每次进入都重新 wxMiniLogin,避免「能进菜单但接口认证失败」。
+ */
+export function ensureMerchantLogin() {
+  return wxLoginOnce().then((data) => {
+    if (data.accountType !== 'merchant') {
+      removeMerchantToken();
+      removeMerchant();
+      return Promise.reject(new Error('not merchant'));
+    }
+    return data;
+  });
 }
 

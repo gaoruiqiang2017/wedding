@@ -10,12 +10,33 @@
   <view class="card">
     <text class="sec-title">图集(最多 9 张)</text>
     <view class="album">
-      <view wx:for="{{albumUrls}}" wx:key="index" class="album-item">
+      <view wx:for="{{albumUrls}}" wx:key="*this" class="album-item">
         <image class="album-img" src="{{item}}" mode="aspectFill" bindtap="previewAlbum" data-index="{{index}}" />
         <text class="album-del" catchtap="removeAlbum" data-index="{{index}}">×</text>
       </view>
       <view wx:if="{{album.length < 9}}" class="album-add" bindtap="addAlbum">＋</view>
     </view>
+  </view>
+
+  <view class="card">
+    <text class="sec-title">背景音乐（可不选）</text>
+    <view class="music-grid">
+      <view class="music-card {{musicKey === 'none' ? 'on' : ''}}" data-key="none" bindtap="onMusicTap">
+        <text class="music-name">无音乐</text>
+        <text class="music-desc">不播放背景乐</text>
+      </view>
+      <block wx:for="{{musicOptions}}" wx:key="key">
+        <view class="music-card {{musicKey === item.key ? 'on' : ''}}" data-key="{{item.key}}" bindtap="onMusicTap">
+          <text class="music-name">{{item.label}}</text>
+          <text class="music-desc">{{item.desc}}</text>
+        </view>
+      </block>
+      <view class="music-card {{musicKey === 'custom' ? 'on' : ''}}" bindtap="chooseMusic">
+        <text class="music-name">自定义</text>
+        <text class="music-desc">{{musicKey === 'custom' ? '已上传自定义音频' : '从微信聊天选择'}}</text>
+      </view>
+    </view>
+    <text class="coord-tip">默认可不选；点内置曲目可试听</text>
   </view>
 
   <view class="card form">
@@ -34,13 +55,13 @@
     <picker mode="date" value="{{datePart}}" bindchange="onDate">
       <view class="field">
         <text class="label req">日期</text>
-        <view class="picker-val">{{ datePart || '请选择婚礼日期' }}</view>
+        <view class="picker-val">{{datePart || '请选择婚礼日期'}}</view>
       </view>
     </picker>
     <picker mode="time" value="{{timePart}}" bindchange="onTime">
       <view class="field">
         <text class="label">时间</text>
-        <view class="picker-val">{{ timePart || '请选择开始时间' }}</view>
+        <view class="picker-val">{{timePart || '请选择开始时间'}}</view>
       </view>
     </picker>
     <view class="field">
@@ -59,16 +80,12 @@
     <view class="field col">
       <text class="label">风格(13 套)</text>
       <view class="style-grid">
-        <view
-          class="style-card {{styleIndex === index ? 'on' : ''}}"
-          wx:for="{{styleOptions}}"
-          wx:key="value"
-          data-index="{{index}}"
-          bindtap="onStyleTap"
-        >
-          <text class="style-name">{{ item.label }}</text>
-          <text class="style-desc">{{ item.desc }}</text>
-        </view>
+        <block wx:for="{{styleOptions}}" wx:key="value">
+          <view class="style-card {{styleIndex === index ? 'on' : ''}}" data-index="{{index}}" bindtap="onStyleTap">
+            <text class="style-name">{{item.label}}</text>
+            <text class="style-desc">{{item.desc}}</text>
+          </view>
+        </block>
       </view>
     </view>
     <view class="field col">
@@ -77,6 +94,6 @@
     </view>
   </view>
 
-  <button class="btn-primary submit" loading="{{saving}}" bindtap="save">保存</button>
-  <button class="btn-ghost preview" wx:if="{{invitationId}}" bindtap="previewPage">预览请柬页</button>
+  <button class="btn-ghost preview-btn" bindtap="previewPage">先预览</button>
+  <button class="btn-primary submit-btn" loading="{{saving}}" bindtap="save">保存请柬</button>
 </view>

@@ -1,4 +1,11 @@
-<view class="page style-{{style}}" wx:if="{{loaded}}">
+<view class="page style-{{style}}" wx:if="{{loaded && !loadError}}">
+  <view class="preview-bar" wx:if="{{preview}}">
+    <text class="preview-bar-text">预览中，效果与宾客所见一致</text>
+    <text class="preview-bar-back" bindtap="backToEdit">返回编辑</text>
+  </view>
+  <view class="music-fab {{musicPlaying ? 'spin' : ''}}" wx:if="{{hasMusic}}" catchtap="toggleMusic">
+    <text class="music-fab-icon">♪</text>
+  </view>
 
   <!-- 1-3: 卡片信息流 -->
   <block wx:if="{{layout === 'card'}}">
@@ -222,4 +229,5 @@
   <view class="footer-tip">花田喜事 · 门店为到店顾客制作的婚礼邀请展示</view>
 </view>
 
+<view wx:elif="{{loadError}}" class="placeholder">请柬不存在或未发布</view>
 <view wx:else class="placeholder">加载中…</view>
