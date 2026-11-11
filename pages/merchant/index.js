@@ -1,6 +1,6 @@
 /**
- * 内容管理(婚纱照片 / 化妆师 的增删改查入口)
- * 需已登录管理账号(具备管理权限)方可进入,否则跳转登录页。
+ * 内容管理(婚纱照片 / 化妆师 / 婚礼请柬 入口)
+ * 需已登录管理账号(具备管理权限)方可进入,否则返回「我的」。
  */
 import { isMerchantLogin, getMerchant, removeMerchantToken, removeMerchant } from '../../utils/auth';
 
@@ -15,11 +15,11 @@ Page({
     this.setData({ name: m.nickName || m.userName || '管理员' });
   },
 
-  /** 未登录管理账号则跳转登录 */
+  /** 未登录管理账号则返回「我的」 */
   guard() {
     if (isMerchantLogin()) return true;
-    wx.showToast({ title: '请先登录', icon: 'none' });
-    setTimeout(() => wx.redirectTo({ url: '/pages/merchant-login/index' }), 800);
+    wx.showToast({ title: '当前账号无法操作内容管理', icon: 'none' });
+    setTimeout(() => wx.switchTab({ url: '/pages/about/index' }), 800);
     return false;
   },
 
@@ -48,5 +48,8 @@ Page({
   },
   goStore() {
     wx.navigateTo({ url: '/pages/merchant-store/index' });
+  },
+  goInvitationAdmin() {
+    wx.navigateTo({ url: '/pages/merchant-invitation/index' });
   },
 });

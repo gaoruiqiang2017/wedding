@@ -1,10 +1,8 @@
 <view class="page" wx:if="{{loaded}}">
-  <!-- 图册 -->
-  <swiper class="banner" indicator-dots="{{album.length > 1}}" indicator-active-color="#c89b6d" circular>
-    <swiper-item wx:for="{{album}}" wx:key="*this" wx:for-item="img">
-      <image class="banner-img" src="{{img}}" mode="aspectFill" />
-    </swiper-item>
-  </swiper>
+  <!-- 主图 -->
+  <view class="banner" bindtap="previewCover">
+    <image class="banner-img" src="{{cover}}" mode="aspectFill" />
+  </view>
 
   <!-- 基本信息 -->
   <view class="card sec">
@@ -19,23 +17,25 @@
       <view class="attr"><text class="k">尺码</text><text class="v">{{ dress.dressSize || '-' }}</text></view>
       <view class="attr"><text class="k">品牌</text><text class="v">{{ dress.brand || '-' }}</text></view>
     </view>
-    <text class="hint">本页仅展示款式信息。可租情况、档期与费用请联系客服或到店咨询确认。</text>
   </view>
 
-  <!-- 相关穿搭案例 -->
-  <view wx:if="{{relatedContents.length}}" class="card sec">
-    <view class="sec-title">相关穿搭案例</view>
-    <scroll-view scroll-x class="content-scroll">
-      <view wx:for="{{relatedContents}}" wx:key="contentId" wx:for-item="c" class="content-card" data-id="{{c.contentId}}" bindtap="goContent">
-        <image class="content-cover" src="{{c.cover}}" mode="aspectFill" />
-        <text class="content-title">{{ c.title }}</text>
-      </view>
-    </scroll-view>
-  </view>
-
-  <!-- 用户评价 -->
-  <view class="card sec">
-    <review-list dress-id="{{dressId}}" title="用户评价"></review-list>
+  <!-- 全部图册 -->
+  <view class="card sec" wx:if="{{album.length}}">
+    <view class="sec-title">款式图册</view>
+    <view class="album">
+      <image
+        class="album-img"
+        wx:for="{{album}}"
+        wx:key="*this"
+        wx:for-item="img"
+        wx:for-index="idx"
+        src="{{img}}"
+        mode="aspectFill"
+        lazy-load
+        data-idx="{{idx}}"
+        bindtap="previewAlbum"
+      />
+    </view>
   </view>
 
   <!-- 底部悬浮咨询栏 -->

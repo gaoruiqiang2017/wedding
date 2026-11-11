@@ -1,6 +1,6 @@
 <view class="page">
   <view class="card tip">
-    <text class="tip-text">你好,{{ name }}。在这里维护对外展示的婚纱照片与化妆师信息,保存后展示页即时可见。</text>
+    <text class="tip-text">你好,{{ name }}。在这里维护对外展示的婚纱、化妆师，以及为到店顾客制作的婚礼请柬。</text>
   </view>
 
   <!-- 内容管理入口 -->
@@ -16,6 +16,10 @@
     <view class="menu-item" bindtap="goStyleAdmin">
       <view class="mi-left"><text class="mi-icon">🏷️</text><text>婚纱风格</text></view>
       <view class="menu-right"><text class="mi-sub">维护风格标签</text><text class="arrow">›</text></view>
+    </view>
+    <view class="menu-item" bindtap="goInvitationAdmin">
+      <view class="mi-left"><text class="mi-icon">💌</text><text>婚礼请柬</text></view>
+      <view class="menu-right"><text class="mi-sub">为到店顾客制作分享页</text><text class="arrow">›</text></view>
     </view>
     <view class="menu-item" bindtap="goStore">
       <view class="mi-left"><text class="mi-icon">🏪</text><text>门店信息</text></view>

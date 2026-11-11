@@ -18,6 +18,22 @@ import { updateCustomerNickname } from '../../api/customer';
 const PROFILE_KEY = 'hf_profile';
 const DEFAULT_AVATAR = '/images/staff-default.png';
 
+/** 后端自动建档的占位名(如 微信用户xxxxxxxx),不算真实昵称 */
+function isPlaceholderName(name) {
+  const n = (name || '').trim();
+  return !n || n === '微信用户' || n.startsWith('微信用户');
+}
+
+/** 取当前登录身份下应展示/保存的昵称字段 */
+function resolveStoredName() {
+  if (isMerchantLogin()) {
+    const m = getMerchant() || {};
+    return m.nickName || '';
+  }
+  const c = getCustomer() || {};
+  return c.customerName || '';
+}
+
 Page({
   data: {
     shopName: '',
@@ -25,6 +41,7 @@ Page({
     loggedIn: false,
     isMerchant: false,
     nickName: '',
+    showNickPanel: false,
     profile: { avatar: '' },
     defaultAvatar: DEFAULT_AVATAR,
   },
@@ -42,14 +59,14 @@ Page({
   },
 
   syncLoginState() {
-    // 顶部卡片以"浏览态(顾客)或管理态任一存在"判断是否已登录:
-    // 登录后仅展示 nickName(管理态取 sys_user 昵称,浏览态取顾客名)。
-    const customer = getCustomer() || {};
-    const merchant = getMerchant() || {};
+    // 顶部卡片以"浏览态(顾客)或管理态任一存在"判断是否已登录
+    // 占位名不展示,引导用户用 type=nickname 填写真实微信昵称
+    const raw = resolveStoredName();
+    const nickName = isPlaceholderName(raw) ? '' : raw;
     this.setData({
       isMerchant: isMerchantLogin(),
       loggedIn: isLogin() || isMerchantLogin(),
-      nickName: merchant.nickName || customer.customerName || '微信用户',
+      nickName,
       profile: wx.getStorageSync(PROFILE_KEY) || { avatar: '' },
     });
   },
@@ -59,8 +76,14 @@ Page({
     wxLoginOnce()
       .then(() => {
         wx.hideLoading();
-        wx.showToast({ title: '登录成功', icon: 'success' });
         this.syncLoginState();
+        // 微信静默登录拿不到昵称,无真实昵称时弹出填写面板
+        if (!this.data.nickName) {
+          this.setData({ showNickPanel: true });
+          wx.showToast({ title: '登录成功，请填写昵称', icon: 'none' });
+        } else {
+          wx.showToast({ title: '登录成功', icon: 'success' });
+        }
       })
       .catch(() => {
         wx.hideLoading();
@@ -77,9 +100,9 @@ Page({
         apiLogout().catch(() => {});
         removeToken();
         removeCustomer();
-        // 顶部卡片代表整体登录态,退出时一并清除管理态
         removeMerchantToken();
         removeMerchant();
+        this.setData({ showNickPanel: false });
         this.syncLoginState();
         wx.showToast({ title: '已退出', icon: 'none' });
       },
@@ -92,25 +115,58 @@ Page({
     this.setData({ profile });
   },
 
-  // 微信昵称填写:拿到微信昵称后按角色写回后端(管理员→nickName,顾客→customerName)
+  skipNick() {
+    this.setData({ showNickPanel: false });
+  },
+
+  noop() {},
+
+  // 微信昵称填写能力:用户点选昵称后写回后端(管理员→nickName,顾客→customerName)
   onNickname(e) {
     const nickName = (e.detail.value || '').trim();
-    if (!nickName || nickName === this.data.nickName) return;
-    const isMerchant = this.data.isMerchant;
-    wx.showLoading({ title: '保存中', mask: true });
-    const save = isMerchant
-      ? updateMerchantNickName(nickName)
-      : updateCustomerNickname(nickName);
-    save
-      .then(() => {
-        if (isMerchant) {
+    if (!nickName || isPlaceholderName(nickName)) return;
+    if (nickName === this.data.nickName) {
+      this.setData({ showNickPanel: false });
+      return;
+    }
+    this.saveNickname(nickName);
+  },
+
+  saveNickname(nickName) {
+    const isMerchant = isMerchantLogin();
+    // 若同时有顾客态,顾客名也一并更新,避免只更管理员侧
+    const tasks = [];
+    if (isMerchant) {
+      tasks.push(
+        updateMerchantNickName(nickName).then(() => {
           setMerchant({ ...(getMerchant() || {}), nickName });
-        } else {
+        }),
+      );
+    }
+    if (isLogin()) {
+      tasks.push(
+        updateCustomerNickname(nickName).then(() => {
           setCustomer({ ...(getCustomer() || {}), customerName: nickName });
-        }
-        this.setData({ nickName });
+        }),
+      );
+    }
+    // 理论上至少有一侧登录;兜底按当前展示角色保存
+    if (!tasks.length) {
+      const save = isMerchant ? updateMerchantNickName(nickName) : updateCustomerNickname(nickName);
+      tasks.push(
+        save.then(() => {
+          if (isMerchant) setMerchant({ ...(getMerchant() || {}), nickName });
+          else setCustomer({ ...(getCustomer() || {}), customerName: nickName });
+        }),
+      );
+    }
+
+    wx.showLoading({ title: '保存中', mask: true });
+    Promise.all(tasks)
+      .then(() => {
+        this.setData({ nickName, showNickPanel: false });
         wx.hideLoading();
-        wx.showToast({ title: '已更新', icon: 'success' });
+        wx.showToast({ title: '昵称已保存', icon: 'success' });
       })
       .catch(() => {
         wx.hideLoading();
@@ -119,36 +175,32 @@ Page({
   },
 
   goManage() {
-    // 已具备管理身份→直接进内容管理
+    // 已是管理员 → 直接进内容管理
     if (this.data.isMerchant) {
       wx.navigateTo({ url: '/pages/merchant/index' });
       return;
     }
-    // 未识别→先静默微信登录探测:openid 已绑定管理账号则直接进入,无需手机号密码
-    wx.showLoading({ title: '正在进入', mask: true });
+    // 静默微信登录识别 openid:管理员进管理页,客户提示无法操作(不再走密码登录页)
+    wx.showLoading({ title: '正在识别', mask: true });
     wxLoginOnce()
       .then((data) => {
         wx.hideLoading();
         this.syncLoginState();
         if (data && data.accountType === 'merchant') {
+          if (!this.data.nickName) this.setData({ showNickPanel: true });
           wx.navigateTo({ url: '/pages/merchant/index' });
-        } else {
-          // 非管理员(或首次尚未绑定)→ 走手机号密码登录
-          wx.navigateTo({ url: '/pages/merchant-login/index' });
+          return;
         }
+        wx.showToast({ title: '当前账号无法操作内容管理', icon: 'none' });
       })
       .catch(() => {
         wx.hideLoading();
-        wx.navigateTo({ url: '/pages/merchant-login/index' });
+        wx.showToast({ title: '当前账号无法操作内容管理', icon: 'none' });
       });
   },
 
   goStore() {
     wx.navigateTo({ url: '/pages/store/index' });
-  },
-
-  goContent() {
-    wx.navigateTo({ url: '/pages/content/index' });
   },
 
   goContact() {

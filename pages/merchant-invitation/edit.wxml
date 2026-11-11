@@ -1,0 +1,82 @@
+<view class="page">
+  <view class="card">
+    <text class="sec-title">封面图</text>
+    <view class="cover-box" bindtap="chooseCover">
+      <image wx:if="{{coverUrl}}" class="cover" src="{{coverUrl}}" mode="aspectFill" />
+      <view wx:else class="cover-ph">＋ 上传封面</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="sec-title">图集(最多 9 张)</text>
+    <view class="album">
+      <view wx:for="{{albumUrls}}" wx:key="index" class="album-item">
+        <image class="album-img" src="{{item}}" mode="aspectFill" bindtap="previewAlbum" data-index="{{index}}" />
+        <text class="album-del" catchtap="removeAlbum" data-index="{{index}}">×</text>
+      </view>
+      <view wx:if="{{album.length < 9}}" class="album-add" bindtap="addAlbum">＋</view>
+    </view>
+  </view>
+
+  <view class="card form">
+    <view class="field">
+      <text class="label">标题</text>
+      <input class="input" placeholder="默认:新郎 & 新娘" value="{{form.title}}" data-field="title" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="label req">新郎</text>
+      <input class="input" placeholder="新郎姓名" value="{{form.groomName}}" data-field="groomName" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="label req">新娘</text>
+      <input class="input" placeholder="新娘姓名" value="{{form.brideName}}" data-field="brideName" bindinput="onInput" />
+    </view>
+    <picker mode="date" value="{{datePart}}" bindchange="onDate">
+      <view class="field">
+        <text class="label req">日期</text>
+        <view class="picker-val">{{ datePart || '请选择婚礼日期' }}</view>
+      </view>
+    </picker>
+    <picker mode="time" value="{{timePart}}" bindchange="onTime">
+      <view class="field">
+        <text class="label">时间</text>
+        <view class="picker-val">{{ timePart || '请选择开始时间' }}</view>
+      </view>
+    </picker>
+    <view class="field">
+      <text class="label">场地</text>
+      <input class="input" placeholder="如 某某酒店宴会厅" value="{{form.venueName}}" data-field="venueName" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="label">地址</text>
+      <input class="input" placeholder="详细地址" value="{{form.venueAddress}}" data-field="venueAddress" bindinput="onInput" />
+    </view>
+    <view class="field col">
+      <text class="label">定位坐标</text>
+      <input class="input" placeholder="纬度,经度(选填)" value="{{coordText}}" bindinput="onCoordInput" />
+      <text class="coord-tip">可用腾讯坐标拾取器获取 GCJ-02 坐标</text>
+    </view>
+    <view class="field col">
+      <text class="label">风格(13 套)</text>
+      <view class="style-grid">
+        <view
+          class="style-card {{styleIndex === index ? 'on' : ''}}"
+          wx:for="{{styleOptions}}"
+          wx:key="value"
+          data-index="{{index}}"
+          bindtap="onStyleTap"
+        >
+          <text class="style-name">{{ item.label }}</text>
+          <text class="style-desc">{{ item.desc }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="field col">
+      <text class="label">欢迎语</text>
+      <textarea class="textarea" placeholder="写给宾客的邀请文案(选填)" value="{{form.welcomeText}}" data-field="welcomeText" bindinput="onInput" />
+    </view>
+  </view>
+
+  <button class="btn-primary submit" loading="{{saving}}" bindtap="save">保存</button>
+  <button class="btn-ghost preview" wx:if="{{invitationId}}" bindtap="previewPage">预览请柬页</button>
+</view>

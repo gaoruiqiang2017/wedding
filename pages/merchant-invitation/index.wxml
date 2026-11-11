@@ -1,0 +1,26 @@
+<view class="page">
+  <view class="toolbar">
+    <button class="btn-primary add-btn" bindtap="goAdd">新建请柬</button>
+  </view>
+
+  <view class="card item" wx:for="{{list}}" wx:key="invitationId">
+    <image class="cover" src="{{item.coverUrl || '/images/dress-default.png'}}" mode="aspectFill" bindtap="goEdit" data-id="{{item.invitationId}}" />
+    <view class="main" bindtap="goEdit" data-id="{{item.invitationId}}">
+      <view class="title-row">
+        <text class="title">{{ item.title || (item.groomName + ' & ' + item.brideName) }}</text>
+        <text class="status {{item.status === '1' ? 'on' : ''}}">{{ item.status === '1' ? '已发布' : '草稿' }}</text>
+      </view>
+      <text class="meta">风格 · {{ item.styleLabel }}</text>
+      <text class="meta" wx:if="{{item.weddingTimeText}}">时间 · {{ item.weddingTimeText }}</text>
+      <text class="meta" wx:if="{{item.venueName || item.venueAddress}}">场地 · {{ item.venueName || item.venueAddress }}</text>
+    </view>
+    <view class="actions">
+      <text class="act" bindtap="toggleStatus" data-id="{{item.invitationId}}" data-status="{{item.status}}">{{ item.status === '1' ? '下架' : '发布' }}</text>
+      <button class="act share-btn" wx:if="{{item.status === '1'}}" open-type="share" data-id="{{item.invitationId}}" data-title="{{item.title}}">分享</button>
+      <text class="act danger" bindtap="removeItem" data-id="{{item.invitationId}}" data-title="{{item.title}}">删除</text>
+    </view>
+  </view>
+
+  <view class="placeholder" wx:if="{{!loading && list.length === 0}}">暂无请柬，点击上方新建</view>
+  <view class="placeholder" wx:if="{{loading}}">加载中…</view>
+</view>

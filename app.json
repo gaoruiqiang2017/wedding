@@ -8,16 +8,16 @@
     "pages/staff-detail/index",
     "pages/contact/index",
     "pages/store/index",
-    "pages/content/index",
-    "pages/content-detail/index",
+    "pages/invitation/index",
     "pages/merchant/index",
-    "pages/merchant-login/index",
     "pages/merchant-dress/index",
     "pages/merchant-dress/edit",
     "pages/merchant-staff/index",
     "pages/merchant-staff/edit",
     "pages/merchant-style/index",
-    "pages/merchant-store/index"
+    "pages/merchant-store/index",
+    "pages/merchant-invitation/index",
+    "pages/merchant-invitation/edit"
   ],
   "tabBar": {
     "custom": true,
@@ -26,10 +26,22 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
-      { "pagePath": "pages/home/home", "text": "首页" },
-      { "pagePath": "pages/dress/index", "text": "婚纱" },
-      { "pagePath": "pages/staff/index", "text": "化妆师" },
-      { "pagePath": "pages/about/index", "text": "我的" }
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/dress/index",
+        "text": "婚纱"
+      },
+      {
+        "pagePath": "pages/staff/index",
+        "text": "化妆师"
+      },
+      {
+        "pagePath": "pages/about/index",
+        "text": "我的"
+      }
     ]
   },
   "lazyCodeLoading": "requiredComponents",

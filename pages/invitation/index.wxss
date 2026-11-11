@@ -1,0 +1,141 @@
+.page { min-height: 100vh; padding-bottom: 80rpx; }
+.placeholder { padding: 120rpx 0; text-align: center; color: #8f857a; }
+.footer-tip { margin: 48rpx 24rpx 0; text-align: center; font-size: 22rpx; color: #a4998d; }
+.names { display: block; font-size: 44rpx; font-weight: 600; line-height: 1.35; }
+.sub, .info-line { display: block; margin-top: 12rpx; font-size: 26rpx; color: #6f655b; }
+.welcome { display: block; font-size: 28rpx; line-height: 1.8; white-space: pre-wrap; color: #2b2622; }
+.poem-line { display: block; font-size: 28rpx; line-height: 1.9; color: #2b2622; text-align: center; }
+.nav-btn {
+  margin-top: 24rpx; height: 80rpx; line-height: 80rpx; border-radius: 999rpx; font-size: 28rpx;
+  color: #fff; background: #c8a26d; border: none;
+}
+.nav-btn::after { border: none; }
+.full-img { width: 100%; display: block; background: #eee; }
+.ornament { width: 60%; margin: 16rpx auto; display: block; }
+.section { margin: 28rpx 24rpx 0; padding: 32rpx 28rpx; border-radius: 20rpx; }
+.sec-label { display: block; margin-bottom: 20rpx; font-size: 28rpx; font-weight: 600; }
+.info-row { display: flex; padding: 12rpx 0; font-size: 28rpx; }
+.info-row .k { width: 100rpx; flex-shrink: 0; opacity: .7; }
+.info-row .v { flex: 1; line-height: 1.5; }
+.album { display: flex; flex-wrap: wrap; justify-content: space-between; }
+.album-img { width: calc((100% - 16rpx) / 2); height: 320rpx; margin-bottom: 16rpx; border-radius: 14rpx; background: #eee; }
+
+/* card hero */
+.hero { position: relative; width: 100%; height: 780rpx; overflow: hidden; }
+.hero-img { width: 100%; height: 100%; background: #eee; }
+.hero-mask { position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: linear-gradient(transparent, rgba(43,38,34,.72)); }
+.hero-content { position: absolute; left: 40rpx; right: 40rpx; bottom: 56rpx; color: #fff; }
+.eyebrow { display: block; font-size: 24rpx; letter-spacing: 8rpx; opacity: .9; }
+.hero-content .title { display: block; margin-top: 12rpx; font-size: 26rpx; opacity: .92; }
+
+.style-floral { background: linear-gradient(180deg, #faf6f0 0%, #f3ebe2 100%); }
+.style-floral .card-like { background: rgba(255,255,255,.92); box-shadow: 0 8rpx 28rpx rgba(184,140,90,.08); }
+.style-floral .sec-label { color: #b0885a; }
+.style-floral .nav-btn { background: linear-gradient(135deg, #d4b183, #c8a26d); }
+
+.style-classic { background: #f7f3ef; }
+.style-classic .hero-mask { background: linear-gradient(transparent, rgba(68,28,36,.78)); }
+.style-classic .card-like { background: #fffdfb; border: 1rpx solid #eadfd4; }
+.style-classic .sec-label { color: #8a3b4a; letter-spacing: 4rpx; }
+.style-classic .names { font-family: "Songti SC", "STSong", serif; }
+.style-classic .nav-btn { background: #8a3b4a; }
+
+.style-modern { background: #f5f5f5; }
+.style-modern .hero { height: 680rpx; }
+.style-modern .card-like { background: #fff; border-radius: 8rpx; }
+.style-modern .sec-label { color: #111; font-weight: 700; }
+.style-modern .nav-btn { background: #222; border-radius: 8rpx; }
+.style-modern .album-img { border-radius: 4rpx; }
+
+/* poetic */
+.style-poetic { background: #faf8f5; }
+.poetic-head { padding: 48rpx 40rpx 24rpx; text-align: center; }
+.poetic-head .names { margin-bottom: 8rpx; }
+.poem { padding: 36rpx 48rpx; }
+
+/* dual */
+.style-dual { background: #fff; }
+.dual-top { position: relative; }
+.dual-img { width: 100%; height: 720rpx; }
+.dual-deco { position: absolute; right: 24rpx; bottom: -40rpx; width: 280rpx; border: 8rpx solid #fff; }
+.dual-bottom { padding: 80rpx 40rpx 40rpx; text-align: center; }
+
+/* calendar */
+.style-calendar { background: #1a1a1a; color: #fff; }
+.style-calendar .sub, .style-calendar .welcome, .style-calendar .info-row, .style-calendar .names { color: #fff; }
+.style-calendar .card-like { background: rgba(255,255,255,.08); }
+.style-calendar .nav-btn { background: #c8a26d; }
+.cal-hero { position: relative; min-height: 900rpx; }
+.cal-bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .45; }
+.cal-panel { position: relative; margin: 80rpx 40rpx; padding: 32rpx; background: rgba(255,255,255,.92); border-radius: 20rpx; color: #2b2622; }
+.cal-head { display: flex; align-items: baseline; gap: 8rpx; margin-bottom: 20rpx; }
+.cal-month { font-size: 64rpx; font-weight: 700; }
+.cal-day { font-size: 36rpx; }
+.cal-year { margin-left: auto; font-size: 26rpx; color: #8f857a; }
+.cal-week { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 22rpx; color: #8f857a; margin-bottom: 12rpx; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8rpx; }
+.cal-cell { position: relative; height: 64rpx; display: flex; align-items: center; justify-content: center; font-size: 24rpx; }
+.cal-cell.empty { opacity: 0; }
+.cal-cell.on { color: #c8a26d; font-weight: 700; }
+.cal-love { position: absolute; width: 48rpx; opacity: .85; }
+
+/* mapfocus */
+.style-mapfocus { background: #f7f2ec; }
+.map-head { padding: 48rpx 40rpx 24rpx; text-align: center; }
+.map-title { display: block; font-size: 48rpx; font-weight: 600; }
+.map-en { display: block; margin-top: 8rpx; letter-spacing: 4rpx; font-size: 22rpx; color: #8f857a; }
+.focus-map { width: 100%; height: 520rpx; }
+.map-nav { margin: 24rpx 40rpx; }
+.section-pad { padding: 0 40rpx; }
+
+/* story */
+.style-story { background: #fffaf6; }
+.story-wrap { padding: 48rpx 36rpx; }
+.story-top { display: block; font-size: 40rpx; font-weight: 600; }
+.story-love, .story-story { display: block; font-size: 72rpx; font-weight: 700; line-height: 1.1; color: #c8a26d; }
+.story-en { display: block; margin-top: 16rpx; font-size: 24rpx; color: #8f857a; }
+.story-zh { display: block; margin: 12rpx 0 28rpx; font-size: 28rpx; }
+.story-img { width: 100%; border-radius: 16rpx; }
+.story-bottom { margin-top: 28rpx; }
+
+/* collage */
+.style-collage { background: #f8f1ea; }
+.collage { padding: 40rpx 28rpx; text-align: center; }
+.collage-top { letter-spacing: 6rpx; font-size: 28rpx; color: #b0885a; }
+.collage-bg { width: 100%; margin-top: 16rpx; border-radius: 16rpx; }
+.collage-box { margin-top: 24rpx; padding: 28rpx 20rpx; background: rgba(255,255,255,.8); border-radius: 20rpx; }
+.wedding-en { display: block; letter-spacing: 8rpx; font-size: 24rpx; }
+.wedding-zh { display: block; font-size: 40rpx; margin: 8rpx 0 16rpx; }
+.collage-imgs { display: flex; gap: 16rpx; margin: 20rpx 0; }
+.c-img { flex: 1; height: 280rpx; border-radius: 12rpx; background: #eee; }
+.collage-words { margin: 12rpx 0; }
+
+/* vertical */
+.style-vertical { background: #111; color: #fff; padding: 40rpx 28rpx; }
+.style-vertical .welcome, .style-vertical .sub { color: rgba(255,255,255,.85); text-align: center; }
+.vert-side { display: flex; flex-direction: column; align-items: center; gap: 8rpx; letter-spacing: 6rpx; font-size: 28rpx; }
+.vert-cap { display: block; margin: 20rpx 0; font-size: 24rpx; opacity: .85; text-align: center; }
+.vert-img { width: 100%; }
+
+/* rose */
+.style-rose { background: #fbf7f4; padding: 40rpx 32rpx; }
+.rose-top { margin-bottom: 24rpx; }
+.rose-en { display: block; text-align: center; letter-spacing: 2rpx; color: #8f857a; margin-bottom: 20rpx; }
+.rose-side { display: flex; flex-direction: column; font-size: 36rpx; font-weight: 700; letter-spacing: 4rpx; margin-bottom: 16rpx; }
+.rose-img { width: 100%; margin: 16rpx 0; }
+
+/* seastory */
+.style-seastory { background: #f4f6f8; padding-bottom: 40rpx; }
+.sea-img { width: 100%; }
+.sea-en { display: block; text-align: center; margin: 24rpx 0 8rpx; letter-spacing: 4rpx; color: #8f857a; }
+.sea-center { text-align: center; padding: 12rpx 24rpx 28rpx; }
+.sea .welcome { padding: 0 32rpx; text-align: center; }
+
+/* beside */
+.style-beside { background: #fff; padding: 40rpx 24rpx; }
+.beside-row { display: flex; gap: 20rpx; align-items: stretch; }
+.beside-left { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.beside-left .poem-line { text-align: left; font-size: 26rpx; }
+.beside-names { margin-top: 28rpx; }
+.beside-names text { display: block; font-size: 34rpx; font-weight: 600; }
+.beside-img { width: 300rpx; height: 420rpx; border-radius: 12rpx; background: #eee; }

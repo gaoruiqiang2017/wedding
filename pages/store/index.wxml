@@ -19,7 +19,7 @@
 
   <!-- 地图 -->
   <view class="card map-card" wx:if="{{hasGeo}}">
-    <map class="map" latitude="{{store.latitude}}" longitude="{{store.longitude}}" markers="{{markers}}" scale="16" enable-zoom enable-scroll show-location></map>
+    <map class="map" latitude="{{store.latitude}}" longitude="{{store.longitude}}" markers="{{markers}}" scale="16" enable-zoom enable-scroll></map>
     <button class="btn-primary nav-btn" bindtap="openLocation">导航到门店</button>
   </view>
   <view class="card map-card no-geo" wx:else>

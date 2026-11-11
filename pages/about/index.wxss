@@ -141,3 +141,56 @@
   color: #8f857a;
   line-height: 1.8;
 }
+
+/* 登录后昵称补填面板 */
+.nick-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(43, 38, 34, 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+}
+.nick-panel {
+  width: 100%;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx 36rpx 32rpx;
+  box-sizing: border-box;
+}
+.nick-title {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #2b2622;
+  text-align: center;
+}
+.nick-tip {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #8f857a;
+  text-align: center;
+  line-height: 1.5;
+}
+.nick-input {
+  margin-top: 32rpx;
+  height: 88rpx;
+  padding: 0 24rpx;
+  background: #f7f2ec;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  color: #2b2622;
+}
+.nick-skip {
+  margin-top: 28rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #b0885a;
+  padding: 12rpx;
+}

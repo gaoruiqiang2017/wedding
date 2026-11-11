@@ -1,27 +1,25 @@
 import { getDress } from '../../api/dress';
-import { listContent } from '../../api/content';
 import { dictLabel, dictColor } from '../../utils/dict';
 import { parseAlbum } from '../../utils/common';
 import { mediaUrl } from '../../utils/media';
 
-const CONTENT_PLACEHOLDER = '/images/dress-default.png';
+const DRESS_PLACEHOLDER = '/images/dress-default.png';
 
 Page({
   data: {
     dressId: '',
     dress: {},
+    cover: DRESS_PLACEHOLDER,
     album: [],
     statusLabel: '',
     statusColor: '',
     styleLabel: '',
-    relatedContents: [],
     loaded: false,
   },
 
   onLoad(opt) {
     this.setData({ dressId: opt.id });
     this.loadDetail();
-    this.loadRelated();
   },
 
   onShareAppMessage() {
@@ -35,9 +33,12 @@ Page({
     getDress(this.data.dressId)
       .then((res) => {
         const dress = res.data || {};
-        const album = parseAlbum(dress.album, dress.coverImg).map(mediaUrl).filter(Boolean);
+        const cover = mediaUrl(dress.coverImg) || DRESS_PLACEHOLDER;
+        // 下方图册只展示 album,不把封面再塞进去,避免与顶部主图重复
+        const album = parseAlbum(dress.album, '').map(mediaUrl).filter(Boolean);
         this.setData({
           dress,
+          cover,
           album,
           statusLabel: dictLabel('hf_dress_status', dress.status),
           statusColor: dictColor('hf_dress_status', dress.status),
@@ -48,20 +49,17 @@ Page({
       .catch(() => {});
   },
 
-  loadRelated() {
-    listContent({ dressId: this.data.dressId, pageNum: 1, pageSize: 10 })
-      .then((res) => {
-        const relatedContents = (res.rows || []).map((c) => ({
-          ...c,
-          cover: mediaUrl(c.coverImg) || CONTENT_PLACEHOLDER,
-        }));
-        this.setData({ relatedContents });
-      })
-      .catch(() => {});
+  previewCover() {
+    const urls = this.data.album.length ? this.data.album : [this.data.cover];
+    wx.previewImage({ urls, current: this.data.cover });
   },
 
-  goContent(e) {
-    wx.navigateTo({ url: `/pages/content-detail/index?id=${e.currentTarget.dataset.id}` });
+  previewAlbum(e) {
+    const idx = e.currentTarget.dataset.idx;
+    wx.previewImage({
+      urls: this.data.album,
+      current: this.data.album[idx],
+    });
   },
 
   goContact() {

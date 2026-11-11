@@ -29,7 +29,10 @@
 }
 .field {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
   padding: 26rpx 0;
   border-bottom: 1rpx solid #f2f2f2;
 }
@@ -45,6 +48,7 @@
   font-size: 28rpx;
   color: #2b2622;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 .label.req::after {
   content: ' *';
@@ -54,10 +58,17 @@
   flex: 1;
   font-size: 28rpx;
 }
-.picker-val {
+.picker {
   flex: 1;
+  min-width: 0;
+}
+.picker-val {
+  width: 100%;
   font-size: 28rpx;
   color: #2b2622;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .textarea {
   width: 100%;

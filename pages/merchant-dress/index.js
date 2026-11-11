@@ -31,7 +31,7 @@ Page({
 
   guard() {
     if (isMerchantLogin()) return true;
-    wx.redirectTo({ url: '/pages/merchant-login/index' });
+    wx.switchTab({ url: '/pages/about/index' });
     return false;
   },
 

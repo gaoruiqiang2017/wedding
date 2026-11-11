@@ -9,10 +9,10 @@ Page({
   data: {
     staffId: '',
     staff: {},
+    avatar: STAFF_PLACEHOLDER,
     levelLabel: '',
     tagList: [],
     portfolioList: [],
-    gallery: [],
     loaded: false,
   },
 
@@ -32,15 +32,15 @@ Page({
     getStaff(this.data.staffId)
       .then((res) => {
         const staff = res.data || {};
+        // 顶部展示头像,作品集单独在下方展示,避免上下两块图片重复
         const avatar = mediaUrl(staff.avatar) || STAFF_PLACEHOLDER;
         const portfolioList = parseAlbum(staff.portfolio, '').map(mediaUrl).filter(Boolean);
-        const gallery = portfolioList.length ? portfolioList : [avatar];
         this.setData({
           staff,
+          avatar,
           levelLabel: dictLabel('hf_staff_level', staff.level),
           tagList: parseTags(staff.tags),
           portfolioList,
-          gallery,
           loaded: true,
         });
       })

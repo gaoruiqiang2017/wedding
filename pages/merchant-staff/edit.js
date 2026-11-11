@@ -34,7 +34,7 @@ Page({
 
   onLoad(options) {
     if (!isMerchantLogin()) {
-      wx.redirectTo({ url: '/pages/merchant-login/index' });
+      wx.switchTab({ url: '/pages/about/index' });
       return;
     }
     if (options && options.staffId) {

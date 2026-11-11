@@ -10,10 +10,10 @@
           class="nickname"
           type="nickname"
           value="{{nickName}}"
-          placeholder="点击设置微信昵称"
+          placeholder="点击填写微信昵称"
           placeholder-class="ph"
           bindblur="onNickname"
-          bindchange="onNickname"
+          bindconfirm="onNickname"
         />
       </view>
       <text class="logout" catchtap="logout">退出</text>
@@ -22,7 +22,7 @@
       <image class="avatar" src="{{defaultAvatar}}" mode="aspectFill" />
       <view class="user-main">
         <text class="user-name">点击登录</text>
-        <text class="user-sub">微信一键登录，完善头像</text>
+        <text class="user-sub">微信一键登录，完善头像昵称</text>
       </view>
       <view class="ic ic-arrow arrow"></view>
     </view>
@@ -46,10 +46,6 @@
       <text>联系咨询</text>
       <view class="ic ic-arrow arrow"></view>
     </view>
-    <view class="menu-item" bindtap="goContent">
-      <text>备婚指南</text>
-      <view class="ic ic-arrow arrow"></view>
-    </view>
     <view class="menu-item" bindtap="goManage">
       <text>内容管理</text>
       <view class="menu-right">
@@ -63,6 +59,24 @@
     <view class="ver text-muted">花田喜事门店展示 v{{ version }}</view>
     <view class="beian">
       <text class="beian-link" data-url="https://beian.miit.gov.cn/" bindtap="openUrl">京ICP备2026036329号-2X</text>
+    </view>
+  </view>
+
+  <!-- 登录后补填微信昵称(静默登录无法直接拿到昵称) -->
+  <view class="nick-mask" wx:if="{{showNickPanel}}" catchtouchmove="noop">
+    <view class="nick-panel">
+      <text class="nick-title">完善微信昵称</text>
+      <text class="nick-tip">微信规定需你亲自确认后才能保存昵称</text>
+      <input
+        class="nick-input"
+        type="nickname"
+        placeholder="点击选用微信昵称"
+        placeholder-class="ph"
+        bindblur="onNickname"
+        bindconfirm="onNickname"
+        focus="{{showNickPanel}}"
+      />
+      <view class="nick-skip" bindtap="skipNick">稍后填写</view>
     </view>
   </view>
 </view>

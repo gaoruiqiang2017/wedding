@@ -1,9 +1,7 @@
 <view class="page" wx:if="{{loaded}}">
-  <swiper class="banner" indicator-dots="{{gallery.length > 1}}" indicator-active-color="#c89b6d" circular>
-    <swiper-item wx:for="{{gallery}}" wx:key="*this" wx:for-item="img">
-      <image class="banner-img" src="{{img}}" mode="aspectFill" />
-    </swiper-item>
-  </swiper>
+  <view class="banner">
+    <image class="banner-img" src="{{avatar}}" mode="aspectFill" />
+  </view>
 
   <view class="card sec">
     <view class="title-row">
@@ -17,7 +15,6 @@
     <view class="tags" wx:if="{{tagList.length}}">
       <text class="tag" wx:for="{{tagList}}" wx:key="*this" wx:for-item="tg">{{ tg }}</text>
     </view>
-    <text class="hint">本页仅展示化妆造型人员介绍。预约与费用请联系客服或到店咨询确认。</text>
   </view>
 
   <view class="card sec" wx:if="{{staff.intro}}">
